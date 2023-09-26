@@ -45,6 +45,10 @@ export class Visit extends Entity {
   })
   id?: string;
 
+  @property({
+    type: 'string',
+  })
+  siteId?: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

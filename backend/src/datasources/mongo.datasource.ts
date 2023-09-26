@@ -5,10 +5,10 @@ const config = {
   name: 'mongo',
   connector: 'mongodb',
   port: 27017,
-  url: 'mongodb+srv://alexis:6ZnQthcFhlFwQvOA@cluster0.2qru803.mongodb.net/mongo?retryWrites=true&w=majority',
-  // host: '',
-  // user: '',
-  // password: 'm001-student',
+  url: 'mongodb+srv://alexis:@cluster0.2qru803.mongodb.net/mongo?retryWrites=true&w=majority',
+  host: '',
+  user: '',
+  password: '',
   database: 'mongo',
   useNewUrlParser: true
 };

@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Visit} from './visit.model';
 
 @model({settings: {strict: false}})
 export class Site extends Entity {
@@ -39,6 +40,8 @@ export class Site extends Entity {
   })
   id?: string;
 
+  @hasMany(() => Visit)
+  visits: Visit[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
