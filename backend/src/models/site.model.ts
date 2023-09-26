@@ -25,7 +25,13 @@ export class Site extends Entity {
     required: true,
   })
   frequency: number;
-
+  
+  @property({
+    type: 'string',
+    required: true,
+  })
+  extractor: string;
+  
   @property({
     type: 'string',
     id: true,

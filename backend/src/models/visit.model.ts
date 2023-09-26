@@ -33,6 +33,12 @@ export class Visit extends Entity {
   extractor: string;
 
   @property({
+    type: 'Object',
+    required: true,
+  })
+  document: Object;
+
+  @property({
     type: 'string',
     id: true,
     generated: true,
