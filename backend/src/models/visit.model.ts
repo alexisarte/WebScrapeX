@@ -1,0 +1,57 @@
+import {Entity, model, property} from '@loopback/repository';
+
+@model({settings: {strict: false}})
+export class Visit extends Entity {
+  @property({
+    type: 'string',
+    required: true,
+  })
+  name: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  url: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  maxDepth: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  frequency: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  extractor: string;
+
+  @property({
+    type: 'string',
+    id: true,
+    generated: true,
+  })
+  id?: string;
+
+  // Define well-known properties here
+
+  // Indexer property to allow additional data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [prop: string]: any;
+
+  constructor(data?: Partial<Visit>) {
+    super(data);
+  }
+}
+
+export interface VisitRelations {
+  // describe navigational properties here
+}
+
+export type VisitWithRelations = Visit & VisitRelations;
