@@ -1,11 +1,13 @@
 <script setup>
+  import WebSitesList from '../components/WebSitesList.vue';
 </script>
 
 <template>
   <main>
-    asdfkjajdsfalñkdskfjk
+    <WebSitesList />
   </main>
 </template>
+
 <style scoped>
 </style>
 

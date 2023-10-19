@@ -10,7 +10,11 @@ import { RouterLink, RouterView } from 'vue-router'
       <v-btn> <RouterLink to="/website/new">Add site</RouterLink></v-btn>
       <v-btn>Logout</v-btn>
     </v-app-bar>
-    <RouterView />
+    
+    <v-main>
+      <RouterView />
+    </v-main>
+    
   </v-app>
 </template>
 
