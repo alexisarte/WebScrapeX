@@ -1,5 +1,12 @@
+<script setup>
+  import SiteForm from '../components/SiteForm.vue';
+</script>
+
 <template>
-  <h1>Formularios</h1>
+  <main>
+    <SiteForm />
+  </main>
 </template>
 
-<style></style>
+<style>
+</style>
