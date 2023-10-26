@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <v-app>
-    <v-app-bar :elevation="0" class="whi">
+    <v-app-bar :elevation="0" class="whi" color="black">
       <v-app-bar-title>Web Scrape X</v-app-bar-title>
       <v-btn><RouterLink to="/">Sites</RouterLink></v-btn>
       <v-btn> <RouterLink to="/website/new">Add site</RouterLink></v-btn>

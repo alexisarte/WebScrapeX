@@ -14,17 +14,21 @@
 </script>
 
 <template>
-  <h1>
-    Registered websites
-  </h1>
-  <v-list lines="one">
-    <v-list-item
-      v-for="w in websites"
-      :key="w.id"
-      :title="w.name"
-      :subtitle="w.url"
-    ></v-list-item>
-  </v-list>
+  <v-container>
+    <!-- <v-sheet> -->
+      <h1>Registered websites</h1>
+      <v-list lines="one">
+        <v-list-item
+          v-for="w in websites"
+          :key="w.id"
+          :title="w.name"
+          :subtitle="w.url"
+        >
+        <v-btn><RouterLink :to="{name:'detail', params:{id:w.id}}">Settings</RouterLink></v-btn>
+        </v-list-item>
+      </v-list>
+    <!-- </v-sheet> -->
+  </v-container>
 </template>
 
 <style>

@@ -1,10 +1,11 @@
-@import './base.css';
+/* En tu archivo CSS principal o en tu archivo de estilos */
+@import url('https://cdn.jsdelivr.net/npm/material-design-icons/iconfont/material-icons.css');
 
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
+  background-color: black;
   font-weight: normal;
 }
 
@@ -23,13 +24,11 @@ a,
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
+    /* display: flex; */
     place-items: center;
   }
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+body {
+  background-color: #1e1e20;
 }
