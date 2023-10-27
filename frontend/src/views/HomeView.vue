@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <WebSitesList />
+    <!-- <WebSitesList /> -->
   </main>
 </template>
 

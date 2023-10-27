@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { authGuard } from "@auth0/auth0-vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +13,20 @@ const router = createRouter({
     {
       path: '/website/:id',
       name: 'detail',
+      beforeEnter: authGuard,
       component: () => import('../views/EditWebSiteView.vue')
     },
     {
       path: '/website/new',
       name: 'addWebsite',
+      beforeEnter: authGuard,
       component: () => import('../views/NewWebSiteView.vue')
+    },
+    {
+      path: '/websites',
+      name: 'websites',
+      beforeEnter: authGuard,
+      component: () => import('../views/WebSitesListView.vue')
     }
   ]
 })
