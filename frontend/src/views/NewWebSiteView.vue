@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <SiteForm />
+    <SiteForm :title="'Add a new website'" />
   </main>
 </template>
 

@@ -20,9 +20,18 @@ const getWebSite = async (id) => {
   }
 }
 
-const postWebSites = async (payload) => {
+const createWebSite = async (payload) => {
   try {
     const response = await service.post('/sites', payload)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const updateWebSite = async (id, newFields) => {
+  try {
+    const response = await service.put(`/sites/${id}`, newFields)
     return response.data
   } catch (error) {
     console.error(error)
@@ -41,6 +50,7 @@ const deleteWebSite = async (id) => {
 export default {
   getWebSites,
   getWebSite,
-  postWebSites,
-  deleteWebSite
+  createWebSite,
+  deleteWebSite,
+  updateWebSite
 }

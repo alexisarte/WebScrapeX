@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/website/:id',
       name: 'detail',
-      component: () => import('../views/WebSiteView.vue')
+      component: () => import('../views/EditWebSiteView.vue')
     },
     {
       path: '/website/new',

@@ -16,13 +16,13 @@
 
   onBeforeMount(setWebsite);
   
-  const deleteWebSite = async () => {
-      WebSiteService.deleteWebSite(route.params.id).then(() => {
-        success.value = true;
-        website.value = false;
-      }).catch(() => {
-        error.value = true;
-      });
+  const deleteWebSite = () => {
+    WebSiteService.deleteWebSite(route.params.id).then(() => {
+      success.value = true;
+      website.value = false;
+    }).catch(() => {
+      error.value = true;
+    });
   }
 
 </script>

@@ -9,6 +9,10 @@
     websites.value = result;
   }
 
+  const deleteWebSite = (id) => WebSiteService.deleteWebSite(id).then(() => {
+    websites.value = websites.value.filter(w => w.id !== id);
+  });
+
   onBeforeMount(setWebsites);
 
 </script>
@@ -24,7 +28,8 @@
           :title="w.name"
           :subtitle="w.url"
         >
-        <v-btn><RouterLink :to="{name:'detail', params:{id:w.id}}">Settings</RouterLink></v-btn>
+        <v-btn><RouterLink :to="{name:'detail', params:{id:w.id}}">Edit</RouterLink></v-btn>
+        <v-btn @click="deleteWebSite(w.id)">Delete</v-btn>
         </v-list-item>
       </v-list>
     <!-- </v-sheet> -->

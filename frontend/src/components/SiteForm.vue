@@ -1,21 +1,53 @@
 <script setup>
   import { ref } from 'vue';
   import WebSiteService from '../services/WebSiteService.js';
+  import { useRoute } from 'vue-router';
 
-  
-  const website = ref({
-    name: '',
-    url: '',
-    maxDepth: 0,
-    frequency: 0,
-    extractor: ''
-  });
 
+  const route = useRoute();
+
+  const props = defineProps ({
+    title: String,
+    site: {
+      type: Object,
+      default() {
+        return {
+          name: '',
+          url: '',
+          maxDepth: 0,
+          frequency: 0,
+          extractor: ''
+        }
+      }
+    }
+  })
+
+  const website = ref(props.site);
   const error = ref(false);
   const success = ref(false);
 
-  const saveWebSite = async () => {
-    WebSiteService.postWebSites(website.value).then(() => {
+  const handleClick = () => {
+    if (route.params.id) {
+      updateWebSite();
+    } else {
+      saveWebSite();
+    }
+  }
+
+  const saveWebSite = () => {
+    error.value = false;
+    success.value = false;
+    WebSiteService.createWebSite(website.value).then(() => {
+      success.value = true;
+    }).catch(() => {
+      error.value = true;
+    });
+  }
+
+  const updateWebSite = () => {
+    error.value = false;
+    success.value = false;
+    WebSiteService.updateWebSite(route.params.id, website.value).then(() => {
       success.value = true;
     }).catch(() => {
       error.value = true;
@@ -26,7 +58,7 @@
 
 <template>
   <v-container>
-    <h1>Add a new website</h1>
+    <h1>{{ props.title }}</h1>
     <v-sheet max-width="800" class="mx-auto">
       <v-alert
       v-if="success"
@@ -66,7 +98,7 @@
           label="Extractor"
           required
         ></v-text-field>
-        <v-btn @click="saveWebSite" block color="green" class="mt-2">
+        <v-btn @click="handleClick" block color="green" class="mt-2">
           Save
         </v-btn>
       </v-form>
