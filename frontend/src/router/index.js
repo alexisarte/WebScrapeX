@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import UserProfileView from '../views/UserProfileView.vue'
 import { authGuard } from "@auth0/auth0-vue";
 
 const router = createRouter({
@@ -27,6 +28,12 @@ const router = createRouter({
       name: 'websites',
       beforeEnter: authGuard,
       component: () => import('../views/WebSitesListView.vue')
+    },
+    {
+      path : '/profile',
+      name: 'profile',
+      beforeEnter: authGuard,
+      component: UserProfileView
     }
   ]
 })
