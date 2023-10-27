@@ -1,18 +1,17 @@
-
 <script setup>
-import { useAuth0 } from '@auth0/auth0-vue'
+  import { useAuth0 } from '@auth0/auth0-vue';
 
-const { loginWithRedirect } = useAuth0()
+  const { loginWithRedirect } = useAuth0();
 
-const handleLogin = () => {
-  loginWithRedirect({
-    appState: {
-      target: '/websites'
-    }
-  })
-}
+  const handleLogin = () => {
+    loginWithRedirect({
+      appState: {
+        target: '/websites'
+      }
+    });
+  };
 </script>
 
 <template>
-  <v-btn icon @click="handleLogin">LOGIN</v-btn>
+  <v-btn icon @click="handleLogin"><v-icon>mdi-login</v-icon></v-btn>
 </template>
