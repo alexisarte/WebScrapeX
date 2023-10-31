@@ -2,20 +2,23 @@
   import SiteForm from '../components/SiteForm.vue';
   import { useRoute } from 'vue-router';
   import { ref, onBeforeMount } from 'vue';
-  import WebSiteService from '../services/WebSiteService.js';
+  import WebSiteService from '../services/WebSiteServiceClass';
 
   const loading = ref(false);
   const route = useRoute();
 
   let site = {};
   
-  const setWebsite = async () => {
-    const result = await WebSiteService.getWebSite(route.params.id);
-    site = result;
-    loading.value = true;
+  function setWebsite() {
+    WebSiteService.getWebSite(route.params.id).then(
+      result => {
+        site = result;
+        loading.value = true;
+      }
+    );
   }
   
-  onBeforeMount(setWebsite);
+  onBeforeMount(() => setWebsite());
 </script>
 
 <template>

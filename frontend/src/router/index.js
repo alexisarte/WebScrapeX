@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import UserProfileView from '../views/UserProfileView.vue'
 import { authGuard } from "@auth0/auth0-vue";
+import { useAuthStore } from '@/stores/userAuthStore.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,14 @@ const router = createRouter({
       component: UserProfileView
     }
   ]
+})
+
+router.beforeEach((to) => {
+  // ✅ Esto funcionará porque el router comienza su navegación después
+  // de que el router esté instalado y pinia también lo estará
+  const authStore = useAuthStore();
+
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) return '/websites'
 })
 
 export default router

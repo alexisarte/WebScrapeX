@@ -1,19 +1,20 @@
 <script setup>
   import { ref, onBeforeMount } from 'vue';
-  import WebSiteService from '../services/WebSiteService.js';
-
+  import WebSiteService from '../services/WebSiteServiceClass';
+  
   const websites = ref([]);
 
-  const setWebsites = async () => {
-    const result = await WebSiteService.getWebSites()
-    websites.value = result;
+  function setWebsites() {
+    WebSiteService.getWebSites().then(
+      result => websites.value = result
+    );
   }
 
   const deleteWebSite = (id) => WebSiteService.deleteWebSite(id).then(() => {
     websites.value = websites.value.filter(w => w.id !== id);
   });
 
-  onBeforeMount(setWebsites);
+  onBeforeMount(() => setWebsites());
 
 </script>
 
