@@ -13,6 +13,7 @@
     WebSiteService.getWebSite(route.params.id).then(
       result => {
         site = result;
+        console.log("site", site)
         loading.value = true;
       }
     );

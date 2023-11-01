@@ -26,6 +26,8 @@
   const success = ref(false);
 
   const handleClick = () => {
+    website.value.maxDepth = parseInt(website.value.maxDepth);
+    website.value.frequency = parseInt(website.value.frequency);
     if (route.params.id) {
       updateWebSite();
     } else {

@@ -1,9 +1,9 @@
 <script setup>
-import { useAuthStore } from '@/stores/userAuthStore.js';
-const authStore = useAuthStore();
-const user = authStore.getUserData;
+  import { useAuthStore } from '@/stores/userAuthStore.js';
+  const authStore = useAuthStore();
+  const user = authStore.getUserData;
 
-const accesToken = authStore.getToken;
+  const accessToken = authStore.getToken;
 </script>
 
 <template>
@@ -19,7 +19,7 @@ const accesToken = authStore.getToken;
           </div>
         </div>
         <div>
-          <span title="User Token">{{ accessToken }}</span>
+          <span title="User Token">{{ accessToken }}hjhj</span>
         </div>
       </div>
     </div>

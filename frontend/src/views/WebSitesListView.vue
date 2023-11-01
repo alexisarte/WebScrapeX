@@ -4,7 +4,9 @@
 
 <template>
   <main>
-    <WebSitesList />
+    <Suspense>
+      <WebSitesList />
+    </Suspense>
   </main>
 </template>
 
