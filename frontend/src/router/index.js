@@ -1,8 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import UserProfileView from '../views/UserProfileView.vue'
-import { authGuard } from "@auth0/auth0-vue";
-import { useAuthStore } from '@/stores/userAuthStore.js';
+import { createRouter, createWebHistory } from 'vue-router';
+import { authGuard } from '@auth0/auth0-vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/website/:id',
@@ -31,20 +28,12 @@ const router = createRouter({
       component: () => import('../views/WebSitesListView.vue')
     },
     {
-      path : '/profile',
+      path: '/profile',
       name: 'profile',
       beforeEnter: authGuard,
-      component: UserProfileView
+      component: () => import('../views/UserProfileView.vue')
     }
   ]
-})
+});
 
-router.beforeEach((to) => {
-  // ✅ Esto funcionará porque el router comienza su navegación después
-  // de que el router esté instalado y pinia también lo estará
-  const authStore = useAuthStore();
-
-  if (to.meta.requiresAuth && !authStore.isLoggedIn) return '/websites'
-})
-
-export default router
+export default router;
