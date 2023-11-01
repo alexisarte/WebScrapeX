@@ -12,24 +12,6 @@ export class Visit extends Entity {
     type: 'string',
     required: true,
   })
-  url: string;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  maxDepth: number;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  frequency: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
   extractor: string;
 
   @property({
