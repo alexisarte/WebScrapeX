@@ -1,6 +1,3 @@
-/* En tu archivo CSS principal o en tu archivo de estilos */
-@import url('https://cdn.jsdelivr.net/npm/material-design-icons/iconfont/material-icons.css');
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
