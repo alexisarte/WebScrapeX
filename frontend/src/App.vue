@@ -1,6 +1,5 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router';
-  import { onMounted } from 'vue';
 
   import LoginButton from '@/components/buttons/LoginButton.vue';
   import LogoutButton from '@/components/buttons/LogoutButton.vue';
