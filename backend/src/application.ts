@@ -10,6 +10,16 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
 
+import {
+  AuthenticationComponent,
+  registerAuthenticationStrategy,
+} from '@loopback/authentication';
+import {
+  JWTAuthenticationStrategy,
+  JWTServiceProvider,
+  KEY,
+} from './authentication-strategies';
+
 export {ApplicationConfig};
 
 export class BackendApplication extends BootMixin(
@@ -40,5 +50,37 @@ export class BackendApplication extends BootMixin(
         nested: true,
       },
     };
+
+    // Bind authentication component related elements
+    this.component(AuthenticationComponent);
+
+    this.service(JWTServiceProvider);
+
+    // Register the Auth0 JWT authentication strategy
+    registerAuthenticationStrategy(this as any, JWTAuthenticationStrategy);
+    this.configure(KEY).to({
+      jwksUri:
+        'https://dev-0klbifcipzcwm1d5.us.auth0.com/.well-known/jwks.json',
+      audience: 'http://localhost:3000/',
+      issuer: 'https://dev-0klbifcipzcwm1d5.us.auth0.com/',
+      algorithms: ['RS256'],
+    });
+
+    this.api({
+      openapi: '3.0.0',
+      info: {title: 'package or prject name', version: '1.0'},
+      paths: {},
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
+      servers: [{url: '/'}],
+      security: [{bearerAuth: []}],
+    });
   }
 }

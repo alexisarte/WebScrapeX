@@ -1,4 +1,8 @@
 import {inject} from '@loopback/core';
+
+import {authenticate} from '@loopback/authentication';
+import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+
 import {
   Request,
   RestBindings,
@@ -51,5 +55,19 @@ export class PingController {
       url: this.req.url,
       headers: Object.assign({}, this.req.headers),
     };
+  }
+
+  @authenticate({strategy: 'auth0-jwt', options: {scopes: ['greet']}})
+  @get('/greet')
+  @response(200, PING_RESPONSE)
+  async greet(
+    @inject(SecurityBindings.USER)
+    currentUserProfile: UserProfile,
+  ): Promise<UserProfile> {
+    // (@jannyHou)FIXME: explore a way to generate OpenAPI schema
+    // for symbol property
+    currentUserProfile.id = currentUserProfile[securityId];
+    currentUserProfile[securityId] = '';
+    return currentUserProfile;
   }
 }
