@@ -19,7 +19,7 @@
           </div>
         </div>
         <div>
-          <span title="User Token">{{ accessToken }}hjhj</span>
+          <span title="User Token">{{ accessToken }}</span>
         </div>
       </div>
     </div>
