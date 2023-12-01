@@ -1,5 +1,5 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import {ApplicationConfig, createBindingFromClass} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
@@ -19,6 +19,9 @@ import {
   JWTServiceProvider,
   KEY,
 } from './authentication-strategies';
+
+import {CronComponent} from '@loopback/cron';
+import {MyCronJob} from './utils/MyCronJob';
 
 export {ApplicationConfig};
 
@@ -82,5 +85,9 @@ export class BackendApplication extends BootMixin(
       servers: [{url: '/'}],
       security: [{bearerAuth: []}],
     });
+
+    this.component(CronComponent);
+    this.add(createBindingFromClass(MyCronJob));
+
   }
 }
