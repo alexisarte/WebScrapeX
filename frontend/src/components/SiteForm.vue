@@ -15,7 +15,7 @@
           url: '',
           maxDepth: 0,
           frequency: 0,
-          extractor: ''
+          extractor: '(cheerio)=>{\n return {attr:cheerio("elem")}\n}'
         };
       }
     }
@@ -77,7 +77,7 @@
         <v-text-field v-model="website.url" label="URL" required></v-text-field>
         <v-text-field v-model="website.maxDepth" label="MaxDepth" required></v-text-field>
         <v-text-field v-model="website.frequency" label="Frequency" required></v-text-field>
-        <v-text-field v-model="website.extractor" label="Extractor" required></v-text-field>
+        <v-textarea v-model="website.extractor" label="Extractor" required></v-textarea>
         <v-btn @click="handleClick" block color="green" class="mt-2"> Save </v-btn>
       </v-form>
     </v-sheet>
