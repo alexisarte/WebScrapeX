@@ -2,7 +2,7 @@
   import SiteForm from '../components/SiteForm.vue';
   import { useRoute } from 'vue-router';
   import { ref, onBeforeMount } from 'vue';
-  import WebSiteService from '../services/WebSiteServiceClass';
+import { client } from '../types/APIClient';
 
   const loading = ref(false);
   const route = useRoute();
@@ -10,9 +10,9 @@
   let site = {};
   
   function setWebsite() {
-    WebSiteService.getWebSite(route.params.id).then(
+    client['SiteController.findById'](route.params.id).then(
       result => {
-        site = result;
+        site = result.data;
         loading.value = true;
       }
     );

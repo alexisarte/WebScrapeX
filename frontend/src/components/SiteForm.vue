@@ -1,7 +1,7 @@
 <script setup>
   import { ref } from 'vue';
-  import WebSiteService from '../services/WebSiteServiceClass';
   import { useRoute } from 'vue-router';
+  import { client } from '../types/APIClient';
 
   const route = useRoute();
 
@@ -26,8 +26,6 @@
   const success = ref(false);
 
   const handleClick = () => {
-    website.value.maxDepth = parseInt(website.value.maxDepth);
-    website.value.frequency = parseInt(website.value.frequency);
     if (route.params.id) {
       updateWebSite();
     } else {
@@ -38,8 +36,7 @@
   const saveWebSite = () => {
     error.value = false;
     success.value = false;
-    WebSiteService.createWebSite(website.value)
-      .then(() => {
+    client['SiteController.create'](null, website.value).then(() => {
         success.value = true;
       })
       .catch(() => {
@@ -50,8 +47,7 @@
   const updateWebSite = () => {
     error.value = false;
     success.value = false;
-    WebSiteService.updateWebSite(route.params.id, website.value)
-      .then(() => {
+    client['SiteController.replaceById'](route.params.id, website.value).then(() => {
         success.value = true;
       })
       .catch(() => {

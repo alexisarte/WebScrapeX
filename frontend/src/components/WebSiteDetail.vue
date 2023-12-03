@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
-import WebSiteService from '../services/WebSiteServiceClass';
+import { client } from '../types/APIClient';
 
 const route = useRoute();
 
@@ -10,22 +10,20 @@ const error = ref(false);
 const success = ref(false);
 
 function setWebsite() {
-  WebSiteService.getWebSite(route.params.id).then((result) => {
-    website.value = result;
-  });
+  client['SiteController.findById'](route.params.id).then((result) => 
+    website.value = result.data
+  )
 }
 
 onBeforeMount(() => setWebsite);
 
 const deleteWebSite = () => {
-  WebSiteService.deleteWebSite(route.params.id)
-    .then(() => {
-      success.value = true;
-      website.value = false;
-    })
-    .catch(() => {
-      error.value = true;
-    });
+  client['SiteController.delete'](route.params.id).then(() => {
+    success.value = true;
+    website.value = false;
+  }).catch(() => {
+    error.value = true;
+  });
 };
 </script>
 

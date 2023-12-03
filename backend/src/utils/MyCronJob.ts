@@ -14,8 +14,12 @@ export class MyCronJob extends CronJob {
         console.log(new Date());
         websites.forEach(async website => {
           console.log(website);
-          const result = await processWebsite(website);
-          console.log('Datos extraidos desde la pagina: ', result);
+          try {
+            const result = await processWebsite(website);
+            console.log('Datos extraidos desde la pagina: ', result);
+          } catch (error) {
+            console.error(error);
+          }
         });
       },
       cronTime: `*/10 * * * * *`,
