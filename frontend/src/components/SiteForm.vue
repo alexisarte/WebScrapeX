@@ -2,6 +2,8 @@
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { client } from '../types/APIClient';
+  import { useAuth0 } from '@auth0/auth0-vue';
+  const { user } = useAuth0();
 
   const route = useRoute();
 
@@ -15,7 +17,8 @@
           url: '',
           maxDepth: 0,
           frequency: 0,
-          extractor: '(cheerio)=>{\n return {attr:cheerio("elem")}\n}'
+          extractor: '(cheerio)=>{\n return {attr:cheerio("elem")}\n}',
+          sub:''
         };
       }
     }
@@ -26,6 +29,8 @@
   const success = ref(false);
 
   const handleClick = () => {
+    website.value.frequency = parseInt(website.value.frequency);
+    website.value.maxDepth = parseInt(website.value.maxDepth);
     if (route.params.id) {
       updateWebSite();
     } else {
@@ -34,6 +39,7 @@
   };
 
   const saveWebSite = () => {
+    website.value.sub = user.value.sub;
     error.value = false;
     success.value = false;
     client['SiteController.create'](null, website.value).then(() => {
@@ -47,6 +53,8 @@
   const updateWebSite = () => {
     error.value = false;
     success.value = false;
+    console.log("website.value", website.value);
+
     client['SiteController.replaceById'](route.params.id, website.value).then(() => {
         success.value = true;
       })

@@ -4,7 +4,7 @@
 <template>
   <main>
     HOME
-  </main>
+  </main>  
 </template>
 
 <style scoped>
