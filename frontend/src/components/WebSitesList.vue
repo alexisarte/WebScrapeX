@@ -10,16 +10,10 @@
 
   const websites = ref([]);
   const visites = ref([]);
+  const search = ref(false);
 
   async function setWebsites() {
-    client['SiteController.find']({
-      // Aquí agregamos un parámetro de consulta para filtrar por 'sub'.
-      params: {
-        filter: {
-          sub: 'google-oauth2|103841997987007003103',
-        },
-      }
-    }).then((result) => {
+    client['SiteController.find']().then((result) => {
       const answer = result.data.filter(w => w.sub === user.value.sub);
       websites.value = answer;
     })
@@ -37,17 +31,18 @@
       // se registra el token una vez autenticado para los request de la API.
       client.defaults.headers['authorization'] = `Bearer ${token}`;
       authStore.login(token, user.value);
-      console.log("userrrrrrrrrr", user.value);
     } else {
       authStore.logout();
     }
   }
 
   const showData = () => {
-    fetch().then((result) => {
-      const answer = result.data.filter(w => w.sub === user.value.sub);
-      websites.value = answer;
+    client['VisiteController.find']().then((result) => {
+      const aux = result.data.filter(v => v.document.title.includes('Bullrich'));
+      visites.value = aux;
+      console.log("result.dataaa", visites.value);
     })
+    search.value = true;
   }
   
   onBeforeMount(() => setAuthStore());
@@ -61,14 +56,14 @@
     <!-- <v-sheet> -->
       <h1>Registered websites</h1>
       <v-list lines="one">
-        <v-list-item
-          v-for="w in websites"
+        <v-list-item v-for="w in websites"
           :key="w.id"
           :title="w.name"
           :subtitle="w.url"
         >
-        <v-btn><RouterLink :to="{name:'detail', params:{id:w.id}}">Edit</RouterLink></v-btn>
-        <v-btn @click="deleteWebSite(w.id)">Delete</v-btn>
+        <v-btn icon><RouterLink :to="{name:'editWebsite', params:{id:w.id}}"><v-icon>mdi-tooltip-edit</v-icon></RouterLink></v-btn>
+        <v-btn icon @click="deleteWebSite(w.id)"><v-icon>mdi-delete-forever</v-icon></v-btn>
+        <v-btn icon><RouterLink :to="{name:'siteDetail', params:{id:w.id}}"><v-icon>mdi-details</v-icon></RouterLink></v-btn>
         </v-list-item>
       </v-list>
       <v-card 
@@ -89,16 +84,21 @@
           ></v-text-field>
         </v-toolbar>
       </v-card>
-
+    
+    <template v-if="search">
       <v-list lines="one">
         <v-list-item
           v-for="v in visites"
           :key="v.id"
           :title="v.name"
-          :subtitle="v.url"
+          :subtitle="v.document.title"
         >
         </v-list-item>
       </v-list>
+    </template>
+    <template v-else>
+      <p>Cargando datos...</p>
+    </template>
     <!-- </v-sheet> -->
   </v-container>
 </template>

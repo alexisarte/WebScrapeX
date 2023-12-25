@@ -10,8 +10,8 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
-      path: '/website/:id',
-      name: 'detail',
+      path: '/website/edit/:id',
+      name: 'editWebsite',
       beforeEnter: authGuard,
       component: () => import('../views/EditWebSiteView.vue')
     },
@@ -32,6 +32,12 @@ const router = createRouter({
       name: 'profile',
       beforeEnter: authGuard,
       component: () => import('../views/UserProfileView.vue')
+    },
+    {
+      path: '/website/detail/:id',
+      name: 'siteDetail',
+      beforeEnter: authGuard,
+      component: () => import('../views/WebSiteView.vue')
     }
   ]
 });

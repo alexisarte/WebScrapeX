@@ -1,44 +1,72 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue';
-import { useRoute } from 'vue-router';
-import { client } from '../types/APIClient';
+  import { ref, onBeforeMount } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { client } from '../types/APIClient';
 
-const route = useRoute();
+  const route = useRoute();
 
-const website = ref({});
-const error = ref(false);
-const success = ref(false);
+  const website = ref({});
+  const visites = ref([]);
+  const error = ref(false);
+  const success = ref(false);
 
-function setWebsite() {
-  client['SiteController.findById'](route.params.id).then((result) => 
-    website.value = result.data
-  )
-}
+  const setWebsite = () =>  {
+    client['SiteController.findById'](route.params.id).then((result) => {
+      console.log("result.dataaa", website.value)
+      website.value = result.data
+    })
+  }
 
-onBeforeMount(() => setWebsite);
+  const getVisites = () => {
+    client['SiteVisitController.find'](route.params.id).then((result) => 
+      visites.value = result.data
+    )
+  }
 
-const deleteWebSite = () => {
-  client['SiteController.delete'](route.params.id).then(() => {
-    success.value = true;
-    website.value = false;
-  }).catch(() => {
-    error.value = true;
-  });
-};
+  onBeforeMount(setWebsite);
+  onBeforeMount(getVisites);
 </script>
 
 <template>
   <v-container>
     <v-alert v-if="success" type="success" title="Site successfully deleted"></v-alert>
     <v-alert v-if="error" type="error" title="The site could not be deleted"></v-alert>
-    <h1>{{ website.name }}</h1>
+    <h1>{{website.name}}</h1>
     <v-sheet width="800" class="mx-auto" v-if="website">
-      <p>{{ website.name }}</p>
-      <p>{{ website.url }}</p>
-      <p>{{ website.maxDepth }}</p>
-      <p>{{ website.frequency }}</p>
-      <p>{{ website.extractor }}</p>
-      <v-btn @click="deleteWebSite" block color="red" class="mt-2"> Delete </v-btn>
+      <!-- <v-list lines="one">
+        <v-list-item
+          v-for="v in visites"
+          :key="v.id"
+          :title="v.name"
+          :subtitle="v.url"
+        >
+        </v-list-item>
+      </v-list> -->
+      <v-table>
+        <thead>
+          <tr>
+            <th class="text-left">
+              Name
+            </th>
+            <th class="text-left">
+              URL
+            </th>
+            <th class="text-left">
+              Document
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in visites"
+            :key="item.id"
+          >
+            <td>{{ item.name }}</td>
+            <td>{{ item.url }}</td>
+            <td>{{ item.document }}</td>
+          </tr>
+        </tbody>
+      </v-table>
     </v-sheet>
   </v-container>
 </template>
