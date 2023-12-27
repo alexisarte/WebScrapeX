@@ -14,6 +14,6 @@ export async function processWebsite(site: Site) {
   const body = await response.text();
   const instanciaCheerio = cheerio.load(body);
   const fn = eval(site.extractor);
-
-  return fn(instanciaCheerio);
+  const pageResolver = eval(site.pageResolver);
+  return fn(instanciaCheerio, pageResolver);
 }

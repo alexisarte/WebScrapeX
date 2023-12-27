@@ -1,9 +1,12 @@
 <script setup>
 import { useAuth0 } from '@auth0/auth0-vue';
 
-const { loginWithRedirect } = useAuth0();
+const { loginWithRedirect, user } = useAuth0();
+
+import { client } from '../../types/APIClient';
 
 const handleSignUp = () => {
+  console.log("holaaaaaaaaaaaaaaaaaaa");
   loginWithRedirect({
     appState: {
       target: '/profile'
@@ -12,6 +15,14 @@ const handleSignUp = () => {
       screen_hint: 'signup'
     }
   });
+  console.log("holaaaaaaaaaaaaaaaaaaa");
+  const user2 = {
+    name: user.value.name,
+    token: user.value.sub,
+  }
+  client['UserController.create'](null, user2).then(() => {
+    console.log("user222222222222222222", user2);
+  })
 };
 </script>
 

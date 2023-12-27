@@ -12,6 +12,12 @@ export class Visit extends Entity {
     type: 'string',
     required: true,
   })
+  url: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   extractor: string;
 
   @property({

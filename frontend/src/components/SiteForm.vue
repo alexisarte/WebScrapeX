@@ -5,6 +5,11 @@
   import { useAuth0 } from '@auth0/auth0-vue';
   const { user } = useAuth0();
 
+  import { HighCode } from 'vue-highlight-code';
+  import 'vue-highlight-code/dist/style.css';
+
+  const light = 'light';
+
   const route = useRoute();
 
   const props = defineProps({
@@ -18,7 +23,7 @@
           maxDepth: 1,
           frequency: 1,
           extractor: '(cheerio, pageResolver) => {\n return {title:cheerio("title").text(), enlaces:pageResolver(cheerio)} \n}',
-          pageResolver: '(cheerio) => { var links = []; cheerio("a").each(function (i, elem) { const href = cheerio(this).attr("href"); if (href && href.startsWith(cheerio("url").text())) links.push(href)}); return links; }',
+          pageResolver: '(cheerio) => { var links = []; cheerio("a").each(function (i, elem) { const href = cheerio(this).attr("href"); if (href && href.startsWith("https://www.eldia.com")) links.push(href)}); return links; }',
           sub:''
         };
       }
@@ -76,13 +81,14 @@
         title="The site could not be saved"
         text="Check the form fields"
       ></v-alert>
-
       <v-form>
         <v-text-field v-model="website.name" label="Name" required></v-text-field>
         <v-text-field v-model="website.url" label="URL" required></v-text-field>
         <v-text-field v-model="website.maxDepth" label="MaxDepth" required></v-text-field>
         <v-text-field v-model="website.frequency" label="Frequency" required></v-text-field>
-        <v-textarea v-model="website.extractor" label="Extractor" required></v-textarea>
+        <!-- <HighCode :theme="light" v-model="website.extractor" :codeValue="website.extractor" :textEditor="true"> -->
+          <v-textarea v-model="website.extractor" label="Extractor" required></v-textarea>
+        <!-- </HighCode> -->
         <v-textarea v-model="website.pageResolver" label="Page Resolver" required></v-textarea>
         <v-btn @click="handleClick" block color="green" class="mt-2"> Save </v-btn>
       </v-form>

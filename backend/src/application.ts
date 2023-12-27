@@ -71,7 +71,7 @@ export class BackendApplication extends BootMixin(
 
     this.api({
       openapi: '3.0.0',
-      info: {title: 'package or prject name', version: '1.0'},
+      info: {title: 'WebScrapeX', version: '1.0'},
       paths: {},
       components: {
         securitySchemes: {
@@ -86,8 +86,8 @@ export class BackendApplication extends BootMixin(
       security: [{bearerAuth: []}],
     });
 
-    this.component(CronComponent);
-    this.add(createBindingFromClass(MyCronJob));
+    // this.component(CronComponent);
+    // this.add(createBindingFromClass(MyCronJob));
 
   }
 }

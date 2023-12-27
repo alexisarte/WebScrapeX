@@ -26,13 +26,13 @@ export class Site extends Entity {
     required: true,
   })
   frequency: number;
-  
+
   @property({
     type: 'string',
     required: true,
   })
   extractor: string;
-  
+
   @property({
     type: 'string',
     id: true,
@@ -42,6 +42,11 @@ export class Site extends Entity {
 
   @hasMany(() => Visit)
   visits: Visit[];
+
+  @property({
+    type: 'string',
+  })
+  userId?: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
