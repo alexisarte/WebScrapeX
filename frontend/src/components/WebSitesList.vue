@@ -14,22 +14,27 @@
   async function setWebsites() {
     const filterByName = {
       where: {
-        sub: user.value.sub,
-      },
+        sub: user.value.sub
+      }
     };
-    client['SiteController.find']({ filter: filterByName }).then((result) => {
-      websites.value = result.data;
-    })
-    console.log("trayendo datossssssssssssssss");
+    client['SiteController.find']({ filter: filterByName })
+      .then((result) => {
+        websites.value = result.data;
+        console.log('trayendo datossssssssssssssss');
+      })
+      .catch((error) => {
+        console.error('Error en la llamada OpenAPI:', error);
+      });
+    
   }
 
   const deleteWebSite = (id) => {
     client['SiteController.deleteById'](id).then(() => {
-      websites.value = websites.value.filter(w => w.id !== id);
-    })
+      websites.value = websites.value.filter((w) => w.id !== id);
+    });
   };
 
-  async function setAuthStore() { 
+  async function setAuthStore() {
     if (isAuthenticated) {
       const token = await getAccessTokenSilently();
       // se registra el token una vez autenticado para los request de la API.
@@ -39,32 +44,33 @@
       authStore.logout();
     }
   }
-  
+
   onBeforeMount(() => setAuthStore());
 
   onMounted(() => setWebsites());
-
 </script>
 
 <template>
   <v-container>
     <!-- <v-sheet> -->
-      <h1>Registered websites</h1>
-      <v-list lines="one">
-        <v-list-item v-for="w in websites"
-          :key="w.id"
-          :title="w.name"
-          :subtitle="w.url"
+    <h1>Registered websites</h1>
+    <v-list lines="one">
+      <v-list-item v-for="w in websites" :key="w.id" :title="w.name" :subtitle="w.url">
+        <v-btn icon
+          ><RouterLink :to="{ name: 'editWebsite', params: { id: w.id } }"
+            ><v-icon>mdi-tooltip-edit</v-icon></RouterLink
+          ></v-btn
         >
-        <v-btn icon><RouterLink :to="{name:'editWebsite', params:{id:w.id}}"><v-icon>mdi-tooltip-edit</v-icon></RouterLink></v-btn>
         <v-btn icon @click="deleteWebSite(w.id)"><v-icon>mdi-delete-forever</v-icon></v-btn>
-        <v-btn icon><RouterLink :to="{name:'siteDetail', params:{id:w.id}}"><v-icon>mdi-details</v-icon></RouterLink></v-btn>
-        </v-list-item>
-      </v-list>
+        <v-btn icon
+          ><RouterLink :to="{ name: 'siteDetail', params: { id: w.id } }"
+            ><v-icon>mdi-details</v-icon></RouterLink
+          ></v-btn
+        >
+      </v-list-item>
+    </v-list>
     <!-- </v-sheet> -->
   </v-container>
 </template>
 
-<style>
-
-</style>
+<style></style>

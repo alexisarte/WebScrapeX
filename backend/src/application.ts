@@ -86,8 +86,8 @@ export class BackendApplication extends BootMixin(
       security: [{bearerAuth: []}],
     });
 
-    // this.component(CronComponent);
-    // this.add(createBindingFromClass(MyCronJob));
+    this.component(CronComponent);
+    this.add(createBindingFromClass(MyCronJob));
 
   }
 }

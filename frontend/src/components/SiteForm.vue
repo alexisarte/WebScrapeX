@@ -22,8 +22,8 @@
           url: '',
           maxDepth: 1,
           frequency: 1,
-          extractor: '(cheerio, pageResolver) => {\n return {title:cheerio("title").text(), enlaces:pageResolver(cheerio)} \n}',
-          pageResolver: '(cheerio) => { var links = []; cheerio("a").each(function (i, elem) { const href = cheerio(this).attr("href"); if (href && href.startsWith("https://www.eldia.com")) links.push(href)}); return links; }',
+          extractor: '(cheerio, pageResolver) => {\n return {title:cheerio("title").text(), descripcion:cheerio("#cuerpo_nota_aqui > p:nth-child(1)").text(), enlaces:pageResolver(cheerio)} \n}',
+          pageResolver: '(cheerio) => { var links = []; cheerio("a").each(function (i, elem) { const href = cheerio(this).attr("href"); const url = new URL(href); if (href && href.startsWith(url.hostname)) links.push(href)}); return links; }',
           sub:''
         };
       }
